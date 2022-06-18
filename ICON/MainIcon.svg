@@ -1,0 +1,21 @@
+<svg id="组件_14_1" data-name="组件 14 – 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="211.845" height="214.976" viewBox="0 0 211.845 214.976">
+  <defs>
+    <filter id="J" x="1.15" y="47.071" width="76" height="138" filterUnits="userSpaceOnUse">
+      <feOffset dx="-9" dy="9" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="4.5" result="blur"/>
+      <feFlood flood-opacity="0.161"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g id="icons8_crane_hook" transform="matrix(-0.819, -0.574, 0.574, -0.819, 114.18, 221.099)">
+    <path id="路径_7" data-name="路径 7" d="M19,0V37.947H61.164V0" transform="translate(26.052)" fill="#2f44b6"/>
+    <path id="路径_8" data-name="路径 8" d="M83,40.828V13H49.269V50.1a7.965,7.965,0,0,0,4.638,7.589L74.145,69.078a23.855,23.855,0,0,1,9.7,30.358,22.916,22.916,0,0,1-32.888,9.7L11.322,84.678A31.913,31.913,0,0,0,10.9,91c0,29.093,24.455,52.7,54.813,52.7S120.525,120.1,120.525,91C120.525,67.813,104.925,48,83,40.828Z" transform="translate(0 41.813)" fill="#656d9a"/>
+    <circle id="椭圆_1" data-name="椭圆 1" cx="29.515" cy="29.515" r="29.515" transform="translate(10.675 24.071)" fill="#fbce55"/>
+    <circle id="椭圆_2" data-name="椭圆 2" cx="12.649" cy="12.649" r="12.649" transform="translate(27.54 40.937)" fill="#f36e02" stroke="#fff" stroke-width="6"/>
+  </g>
+  <path id="路径_9" data-name="路径 9" d="M8.338,0H90.961A8.338,8.338,0,0,1,99.3,8.338V90.961A8.338,8.338,0,0,1,90.961,99.3H8.338A8.338,8.338,0,0,1,0,90.961V8.338A8.338,8.338,0,0,1,8.338,0Z" transform="translate(0 57.838)" fill="#4d61d0"/>
+  <g transform="matrix(1, 0, 0, 1, 0, 0)" filter="url(#J)">
+    <text id="J-2" data-name="J" transform="translate(23.65 139.57)" fill="#fff" font-size="92" font-family="ProductSans-Regular, Product Sans"><tspan x="0" y="0">J</tspan></text>
+  </g>
+</svg>
