@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -12,7 +15,6 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 using Jiyu_Manager.Jiyu_Manager_Class;
 
 namespace Jiyu_Manager
@@ -38,11 +40,26 @@ namespace Jiyu_Manager
             aTimer.Change(1000, Timeout.Infinite);
             TopMostClass.TopMostMainWindow();
         }
-        private void StartDetectionToggle_Toggled(object sender, RoutedEventArgs e)
+        private async void StartDetectionToggle_Toggled(object sender, RoutedEventArgs e)
         {
             StartTop.IsOn = true;
-            JiyuManagerHookClass.RegGACAssembly();
+            await RegGACAssemblyAsync();
             JiyuManagerHookClass.InstallHookInternal();
+        }
+        
+        private async static Task<bool> RegGACAssemblyAsync()
+        {
+            // 在Easyhook 2.7版本中，不需要Register GAC，详见 https://stackoverflow.com/questions/31762879/easyhook-the-given-32-bit-library-does-not-exist-user-library-does-not-export
+            try
+            {
+                JiyuManagerHookClass.RegHookerGACAssembly();
+                JiyuManagerHookClass.RegEasyhookGACAssembly();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("RegGACAssembly " + ex.ToString());
+            }
+            return true;
         }
 
         private void AvoidQuizToggle_Toggled(object sender, RoutedEventArgs e)
@@ -67,7 +84,7 @@ namespace Jiyu_Manager
 
         private void TaskkillJiyu_Click(object sender, RoutedEventArgs e)
         {
-
+            RunCommand.RunCmd("taskkill /im studentmain.exe /f");
         }
 
         private void NTSDkillJiyu_Click(object sender, RoutedEventArgs e)

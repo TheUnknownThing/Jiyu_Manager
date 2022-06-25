@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Top
+namespace Jiyu_Manager.Jiyu_Manager_Class
 {
     static class SetTop
     {

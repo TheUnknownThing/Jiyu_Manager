@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Jiyu_Hooker;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,6 +9,7 @@ using System.Runtime.InteropServices;
 using EasyHook;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 
 namespace Jiyu_Manager.Jiyu_Manager_Class
 {
@@ -25,52 +27,87 @@ namespace Jiyu_Manager.Jiyu_Manager_Class
         [DllImport("user32.dll", CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
         public static extern int CallNextHookEx(int idHook, int nCode, IntPtr wParam, IntPtr lParam);
 
-        [DllImport("User32.dll", EntryPoint = "FindWindow", CharSet = CharSet.Auto)]
+        [DllImport("user32.dll", EntryPoint = "FindWindow", CharSet = CharSet.Auto)]
         private static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+
+        [DllImport("user32.dll", CharSet = CharSet.Auto)]
+        public static extern int GetWindowThreadProcessId(IntPtr hwnd, out int ID);
         #endregion
 
-        public static bool RegGACAssembly()
-        {
-            var dllName = "EasyHook.dll";
-            var dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dllName);
-            if (!RuntimeEnvironment.FromGlobalAccessCache(Assembly.LoadFrom(dllPath)))
-            {
-                new System.EnterpriseServices.Internal.Publish().GacInstall(dllPath);
-                Thread.Sleep(100);
-            }
-            dllName = "JiyuHooker.dll";
-            dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dllName);
-            new System.EnterpriseServices.Internal.Publish().GacRemove(dllPath);
-            if (!RuntimeEnvironment.FromGlobalAccessCache(Assembly.LoadFrom(dllPath)))
-            {
-                new System.EnterpriseServices.Internal.Publish().GacInstall(dllPath);
-                Thread.Sleep(100);
-            }
-            return true;
-        }
-        public class HookParameter
-        {
-            public string Msg { get; set; }
-            public int HostProcessId { get; set; }
-        }
+
 
         #region InstallHook
         private static int GetGuangboProcessID()
         {
+            
             IntPtr GuangboProcess = FindWindow(null, "屏幕广播");
 
             if (GuangboProcess != null)
             {
-                return GuangboProcess.ToInt32();
+                int calcID = 0;    //进程ID
+                int calcTD = 0;    //线程ID
+                calcTD = GetWindowThreadProcessId(GuangboProcess, out calcID);
+                Process myProcess = Process.GetProcessById(calcID);
+                return calcID;
             }
             else
             {
                 return 0;
             }
+            
+
+            /*
+            var p = Process.GetProcessesByName("studentmain");
+            if (p.Length > 0)
+            {
+                return p.FirstOrDefault().Id;
+            }
+            else
+            {
+                System.Windows.MessageBox.Show("Not Found");
+                return 0;
+            }
+            */
+        }
+        public static bool RegHookerGACAssembly()
+        {
+            var dllName = "Jiyu_Hooker.dll";
+            var dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dllName);
+            new System.EnterpriseServices.Internal.Publish().GacRemove(dllPath);
+            /*
+            if (!RuntimeEnvironment.FromGlobalAccessCache(Assembly.LoadFrom(dllPath)))
+            {
+                new System.EnterpriseServices.Internal.Publish().GacInstall(dllPath);
+                Thread.Sleep(100);
+            }
+            System.Windows.MessageBox.Show("Hooker Success");
+            */
+            return true;
+        }
+        public static bool RegEasyhookGACAssembly()
+        {
+            var dllName = "EasyHook.dll";
+            var dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dllName);
+            new System.EnterpriseServices.Internal.Publish().GacRemove(dllPath);
+            /*
+            new System.EnterpriseServices.Internal.Publish().GacInstall(dllPath);
+            System.Windows.MessageBox.Show("Easyhook Success");
+            */
+            return true;
         }
         public static bool InstallHookInternal()
         {
-            int GuangboProcessID = GetGuangboProcessID();
+            System.Windows.MessageBox.Show("Start");
+            int GuangboProcessID = 0;
+            try
+            {
+                GuangboProcessID = GetGuangboProcessID();
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show(ex.ToString());
+            }
+            System.Windows.MessageBox.Show(typeof(HookParameter).Assembly.Location);
             if (GuangboProcessID != 0)
             {
                 try

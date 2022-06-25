@@ -45,17 +45,6 @@ namespace Jiyu_Hooker
                 return;
             }
 
-            try
-            {
-                while (true)
-                {
-                    Thread.Sleep(10);
-                }
-            }
-            catch
-            {
-
-            }
         }
 
         #region SetWindowPosHook_Prep
