@@ -39,6 +39,6 @@ Jiyu_Hooker中的
 
 ### 更新内容
 | 版本 | 内容 | 对应的Commit | Todo | 发布日期 |
-|  ----  | ----  | ---- | ---- |
+|  ----  | ----  | ---- | ---- | ---- |
 | 0.1 Dev | - 软件发布 <br> - 窗口连续置顶 <br> - 基础UI实现 <br> - Easyhook初步 (SetWindowPos) | Commit 1-4 | 完善UI、Hook | 20220618 |
-| 0.2 Dev | - 新增Hook: <br> SetForegroundWindow <br> BringWindowToTop <br> 实现极域广播不置顶 <br> - 新增Debug Output，方便调试 <br> - 更换软件图标 <br> (原来那个伪Fluent Design的太丑了) | Commit 5,6 | 增加广播窗口调节大小功能 | 20220709 |
+| 0.2 Dev | - 新增Hook: <br> SetForegroundWindow <br> BringWindowToTop <br> 实现极域广播不置顶 <br> - 新增Debug Output，方便调试 <br> - 更换软件图标 <br> (原来那个伪Fluent Design的太丑了) | Commit 5,6,7 | 增加广播窗口调节大小功能 | 20220709 |
