@@ -41,27 +41,7 @@ namespace Jiyu_Manager.Jiyu_Manager_Class
         private static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpClassName, string lpWindowName);
         public static void TopMostMainWindow()
         {
-
-            IntPtr MainWindowProcess = FindWindow(null, "Jiyu_Manager_MainWindow");
-
-            if (MainWindowProcess != null)
-            {
-
-                SetWindowPos(MainWindowProcess, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-
-                //System.Windows.MessageBox.Show(MainWindowProcess.ToInt32().ToString() + " Success");
-            }
-
-            if (ProgramInf.isDevFeatureEnabled) //For debug usage
-            {
-                IntPtr SpyWindowProcess = FindWindow(null, "窗口查看器 V1.31 -[361度]-");
-                if (SpyWindowProcess != null)
-                {
-
-                    SetWindowPos(SpyWindowProcess, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
-
-                }
-            }
+            SetWindowPos(ProgramInf.ProgramProcessID, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
         }
         #endregion
         #region SetNoFocus
@@ -94,9 +74,18 @@ namespace Jiyu_Manager.Jiyu_Manager_Class
         }
         public static void SetWindowNoFocus()
         {
-            IntPtr handle = FindWindow(null, "Jiyu_Manager_MainWindow");
-            var exstyle = GetWindowLong(handle, GWL_EXSTYLE);
-            SetWindowLong(handle, GWL_EXSTYLE, new IntPtr(exstyle.ToInt32() | WS_EX_NOACTIVATE));
+            var exstyle = GetWindowLong(ProgramInf.ProgramProcessID, GWL_EXSTYLE);
+            SetWindowLong(ProgramInf.ProgramProcessID, GWL_EXSTYLE, new IntPtr(exstyle.ToInt32() | WS_EX_NOACTIVATE));
+        }
+        #endregion
+
+        #region SetForegroundWindow
+        [DllImport("user32.dll")]
+        private static extern bool SetForegroundWindow(IntPtr hWnd);
+
+        public static void setForegroundWindow()
+        {
+            SetForegroundWindow(ProgramInf.ProgramProcessID);
         }
         #endregion
     }

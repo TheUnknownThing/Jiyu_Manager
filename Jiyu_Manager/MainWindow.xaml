@@ -6,13 +6,13 @@
         xmlns:ui="http://schemas.modernwpf.com/2019"
         xmlns:local="clr-namespace:Jiyu_Manager"
         ui:WindowHelper.UseModernWindowStyle="True"
-        Title="Jiyu_Manager_MainWindow" Height="350" Width="603.448" Topmost="True">
+        Title="Jiyu_Manager_MainWindow" Height="311.736" Width="451.884" Topmost="True">
     <Grid>
 
-        <Label Content="极域管理" x:Name="Header" HorizontalAlignment="Left" Height="36" Margin="10,18,0,0" VerticalAlignment="Top" Width="111" FontSize="24"/>
-        
-        <StackPanel Orientation="Horizontal">
-            <StackPanel Orientation="Vertical" Margin="5,60,5,10">
+        <Label Content="TheUnknownThing Confidential" x:Name="Header" HorizontalAlignment="Left" Height="36" Margin="10,18,0,0" VerticalAlignment="Top" Width="368" FontSize="24"/>
+
+        <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Margin="0,0,0.4,0.2">
+            <StackPanel Orientation="Vertical" Margin="10,60,5,10">
                 <Label Content="Status Overview" FontFamily="Consolas" FontSize="18px"/>
                 <StackPanel Margin="0,10,0,0">
                     <Label Content="极域状态"/>
@@ -36,18 +36,38 @@
             <GridSplitter Margin="5,65,5,30" Width="4"/>
             <StackPanel Orientation="Vertical" Margin="10,60,10,10">
                 <Label Content="Functions" FontFamily="Consolas" FontSize="18px"/>
-                <Button Content="关极域" x:Name="TaskkillJiyu" Margin="0,10,0,0" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="85" FontSize="10" Click="TaskkillJiyu_Click"/>
-                <Button Content="NTSD杀极域" x:Name="NTSDkillJiyu" Margin="0,10,0,0" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="85" FontSize="10" Click="NTSDkillJiyu_Click"/>
+                <Button Content="关极域" x:Name="KillJiyu" Margin="0,10,0,0" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="85" FontSize="10" Click="KillJiyu_Click">
+                    <ui:FlyoutBase.AttachedFlyout>
+                        <ui:Flyout>
+                            <StackPanel Orientation="Vertical">
+                                <Label Content="关闭Studentmain" FontFamily="Consolas" FontSize="18px" Foreground="Red"/>
+                                <Button Content="关极域" x:Name="TaskkillJiyu" Margin="0,10,0,0" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="85" FontSize="10" Click="TaskkillJiyu_Click"/>
+                                <Button Content="NTSD杀极域" x:Name="NTSDkillJiyu" Margin="0,10,0,0" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="85" FontSize="10" Click="NTSDkillJiyu_Click"/>
+                            </StackPanel>
+                        </ui:Flyout>
+                    </ui:FlyoutBase.AttachedFlyout>
+                </Button>
                 <Button Content="关于软件" x:Name="OpenAboutMenu" Margin="0,10,0,0" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="85" FontSize="10" Click="OpenAboutMenu_Click"/>
-                
-            </StackPanel>
-            <GridSplitter Margin="5,65,5,30" Width="4"/>
-            <StackPanel Orientation="Vertical" Margin="10,60,10,10">
-                <Label Content="Danger Zone" FontFamily="Consolas" FontSize="18px" Foreground="Red"/>
-                <ui:ToggleSwitch x:Name="AvoidQuizToggle" OnContent="很勇哦" OffContent="好孩子" Margin="0,10,0,0" Header="屏蔽考试" Toggled="AvoidQuizToggle_Toggled" VerticalAlignment="Top" FontSize="12" Width="97"/>
-                <ui:ToggleSwitch x:Name="AvoidBlankToggle" OnContent="很勇哦" OffContent="好孩子" Margin="0,10,0,0" Header="屏蔽黑屏" Toggled="AvoidQuizToggle_Toggled" VerticalAlignment="Top" FontSize="12" Width="97"/>
+                <Button Content="Danger Zone" x:Name="DangerZoneMenu" Margin="0,10,0,0" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="85" FontSize="10" Click="DangerZoneMenu_Click">
+                    <ui:FlyoutBase.AttachedFlyout>
+                        <ui:Flyout>
+                            <StackPanel Orientation="Vertical">
+                                <Label Content="Danger Zone" FontFamily="Consolas" FontSize="18px" Foreground="Red"/>
+                                <ui:ToggleSwitch x:Name="AvoidQuizToggle" OnContent="很勇哦" OffContent="好孩子" Margin="0,10,0,0" Header="屏蔽考试" Toggled="AvoidQuizToggle_Toggled" VerticalAlignment="Top" FontSize="12" Width="97"/>
+                                <ui:ToggleSwitch x:Name="AvoidBlankToggle" OnContent="很勇哦" OffContent="好孩子" Margin="0,10,0,0" Header="屏蔽黑屏" Toggled="AvoidQuizToggle_Toggled" VerticalAlignment="Top" FontSize="12" Width="97"/>
+                            </StackPanel>
+                        </ui:Flyout>
+                    </ui:FlyoutBase.AttachedFlyout>
+                </Button>
+                <Button Content="Debug选项" x:Name="DebugOptionMenu" Margin="0,10,0,0" HorizontalAlignment="Left" Height="32" VerticalAlignment="Top" Width="85" FontSize="10" Click="DebugOptionMenu_Click">
+                    <ui:FlyoutBase.AttachedFlyout>
+                        <ui:Flyout>
+                            <ui:ToggleSwitch x:Name="ShowDebug" Margin="0,10,0,0" Header="是否开启日志显示" VerticalAlignment="Top" FontSize="12" IsOn="False" Width="130"/>
+                        </ui:Flyout>
+                    </ui:FlyoutBase.AttachedFlyout>
+                </Button>
             </StackPanel>
         </StackPanel>
-        
+
     </Grid>
 </Window>

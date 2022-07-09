@@ -39,7 +39,7 @@ namespace Jiyu_Manager.Jiyu_Manager_Class
         #region InstallHook
         private static int GetGuangboProcessID()
         {
-            
+            /*
             IntPtr GuangboProcess = FindWindow(null, "屏幕广播");
 
             if (GuangboProcess != null)
@@ -54,50 +54,35 @@ namespace Jiyu_Manager.Jiyu_Manager_Class
             {
                 return 0;
             }
-            
-
-            /*
-            var p = Process.GetProcessesByName("studentmain");
-            if (p.Length > 0)
-            {
-                return p.FirstOrDefault().Id;
-            }
-            else
-            {
-                System.Windows.MessageBox.Show("Not Found");
-                return 0;
-            }
             */
+            Process[] jiyuProcess = Process.GetProcessesByName("StudentMain");
+            return jiyuProcess[0].Id;
         }
         public static bool RegHookerGACAssembly()
         {
             var dllName = "Jiyu_Hooker.dll";
             var dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dllName);
             new System.EnterpriseServices.Internal.Publish().GacRemove(dllPath);
-            /*
             if (!RuntimeEnvironment.FromGlobalAccessCache(Assembly.LoadFrom(dllPath)))
             {
                 new System.EnterpriseServices.Internal.Publish().GacInstall(dllPath);
                 Thread.Sleep(100);
             }
-            System.Windows.MessageBox.Show("Hooker Success");
-            */
+            DebugOutputClass.DebugOutputText("Register Hooker Success");
             return true;
         }
         public static bool RegEasyhookGACAssembly()
         {
-            var dllName = "EasyHook.dll";
+            var dllName = "EasyLoad32.dll";
             var dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dllName);
             new System.EnterpriseServices.Internal.Publish().GacRemove(dllPath);
-            /*
             new System.EnterpriseServices.Internal.Publish().GacInstall(dllPath);
-            System.Windows.MessageBox.Show("Easyhook Success");
-            */
+            DebugOutputClass.DebugOutputText("Register Easyhook Success");
             return true;
         }
-        public static bool InstallHookInternal()
+        public static async Task InstallHookInternal()
         {
-            System.Windows.MessageBox.Show("Start");
+            DebugOutputClass.DebugOutputText("Hook Start");
             int GuangboProcessID = 0;
             try
             {
@@ -105,11 +90,14 @@ namespace Jiyu_Manager.Jiyu_Manager_Class
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show(ex.ToString());
+                //System.Windows.MessageBox.Show(ex.ToString());
+                DebugOutputClass.DebugOutputText("Failed to Get Studentmain PID, Error:" + ex.ToString());
             }
-            System.Windows.MessageBox.Show(typeof(HookParameter).Assembly.Location);
             if (GuangboProcessID != 0)
             {
+                var dllName = "Jiyu_Hooker.dll";
+                var dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dllName);
+                DebugOutputClass.DebugOutputText(typeof(HookParameter).Assembly.Location);
                 try
                 {
                     var parameter = new HookParameter
@@ -120,24 +108,23 @@ namespace Jiyu_Manager.Jiyu_Manager_Class
                     RemoteHooking.Inject(
                                         GuangboProcessID,
                                         InjectionOptions.Default,
-                                        typeof(HookParameter).Assembly.Location,
-                                        typeof(HookParameter).Assembly.Location,
+                                        dllPath,
+                                        dllPath,
                                         string.Empty,
                                         parameter
                                     );
-                    System.Windows.MessageBox.Show(parameter.Msg);
+                    DebugOutputClass.DebugOutputText(parameter.Msg);
+                    //System.Windows.MessageBox.Show(parameter.Msg);
                 }
                 catch (Exception ex)
                 {
-                    System.Windows.MessageBox.Show("注入失败" + ex.ToString());
-                    return false;
+                    //System.Windows.MessageBox.Show(ex.ToString());
+                    DebugOutputClass.DebugOutputText("Failed to Get Inject DLL, Error:" + ex.ToString());
                 }
-                return true;
             }
             else
             {
-                System.Windows.MessageBox.Show("未找到进程");
-                return false;
+                DebugOutputClass.DebugOutputText("未找到进程");
             }
         }
         #endregion

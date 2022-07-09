@@ -1,4 +1,4 @@
-<p><img src=/ICON/MainIcon.png align="middle"/></p>
+<div align="center"><img src=/Jiyu_Manager/Icons/MainIcon-New.png/></div>
 <h1><center>Jiyu Manager</center></h1>
 
 ### 软件截图
@@ -6,7 +6,7 @@
 ### 语言 & 环境
 本程序采用C#编写，开发环境为.NET Framework 4.5 + VS2019
 ### 功能 & UI
-- 通过hook解除控屏 / 黑屏 / 考试等 (仍在开发，HookInject遇到问题)
+- 通过hook解除控屏 / 黑屏 / 考试等
 - 始终保持置顶
 - Taskkill关闭极域
 - NTSD关闭极域 (仍在开发)
@@ -24,3 +24,21 @@ Jiyu_Manager/Jiyu_Manager_Class中的
 
 Jiyu_Hooker中的
 - HookLibrary
+
+### Hook内容
+#### 已实现
+- SetWindowPos 已实现
+- SetForegroundWindow 已实现
+- BringWindowToTop 已实现
+#### 未实现
+- DeviceIoControl
+- SetWindowLongA
+- SetWindowLongW
+- ShowWindow
+- SendMessageW
+
+### 更新内容
+| 版本 | 内容 | 对应的Commit | Todo |
+|  ----  | ----  | ---- | ---- |
+| 0.1 Dev | - 软件发布 <br> - 窗口连续置顶 <br> - 基础UI实现 <br> - Easyhook初步 (SetWindowPos) | Commit 1,2 | 完善UI、Hook |
+| 0.2 Dev | - 新增Hook: <br> SetForegroundWindow <br> BringWindowToTop <br> 实现极域广播不置顶 <br> - 新增Debug Output，方便调试 <br> - 更换软件图标 <br> (原来那个伪Fluent Design的太丑了) | Commit 3 | 增加广播窗口调节大小功能 |
